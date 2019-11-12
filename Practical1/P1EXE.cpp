@@ -7,7 +7,7 @@
 
 #define WINDOW_TITLE "Practical 1"
 
-int num = 0;
+int page = 0;
 LRESULT WINAPI WindowProcedure(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
 	switch (msg)
@@ -23,10 +23,10 @@ LRESULT WINAPI WindowProcedure(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
 			PostQuitMessage(0);
 			break;
 		case VK_LEFT:
-			num--;
+			page--;
 			break;
 		case VK_RIGHT:
-			num++;
+			page++;
 			break;
 		}
 		break;
@@ -225,11 +225,18 @@ void smileyFace() {
 }
 
 void drawFlag(int num) {
+	if (num == -1)
+	{
+		page = 5;
+	}
+	if (num == 6)
+	{
+		page = 0;
+	}
+
 	switch (num)
 	{
-	case -1:
-		num = 5;
-		break;
+	
 	case 0:
 		//Pahang
 		glBegin(GL_QUADS);
@@ -379,6 +386,7 @@ void drawFlag(int num) {
 
 			glEnd();
 		}
+		glRotatef(-90, 0, 0, 1);
 		break;
 	case 4:
 		glBegin(GL_QUADS);
@@ -410,7 +418,7 @@ void display()
 	glClearColor(1.0f, 1.0f, 1.0f, 0.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
 	
-	drawFlag(num);
+	drawFlag(page);
 
 }
 //--------------------------------------------------------------------
